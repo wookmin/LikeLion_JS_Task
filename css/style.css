@@ -1,24 +1,18 @@
 /* =========================
    Momentum-like Layout
    ========================= */
-:root {
-  --text: rgba(255, 255, 255, .95);
-  --muted: rgba(255, 255, 255, .75);
-  --glass: rgba(0, 0, 0, .28);
-  --border: rgba(255, 255, 255, .16);
-  --shadow: 0 16px 40px rgba(0, 0, 0, .35);
+:root{
+  --text: rgba(255,255,255,.95);
+  --muted: rgba(255,255,255,.75);
+  --glass: rgba(0,0,0,.28);
+  --border: rgba(255,255,255,.16);
+  --shadow: 0 16px 40px rgba(0,0,0,.35);
 }
 
-* {
-  box-sizing: border-box;
-}
+*{ box-sizing: border-box; }
+html, body{ height: 100%; }
 
-html,
-body {
-  height: 100%;
-}
-
-body {
+body{
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
   color: var(--text);
@@ -41,7 +35,7 @@ body {
 
 /* ✅ 핵심: body에 추가되는 jpeg(img)를 "진짜 배경"처럼 만들어버리기
    (지금 스샷의 큰 사각형 이미지가 이 규칙으로 해결됨) */
-body>img {
+body > img{
   position: fixed;
   inset: 0;
   width: 100vw;
@@ -53,28 +47,26 @@ body>img {
 }
 
 /* 배경 위에 어둡게 + 비네팅(글씨 잘 보이게) */
-body::before {
-  content: "";
+body::before{
+  content:"";
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(1200px 700px at 50% 30%, rgba(255, 255, 255, .10), transparent 60%),
-    radial-gradient(900px 500px at 50% 85%, rgba(0, 0, 0, .25), rgba(0, 0, 0, .65));
+    radial-gradient(1200px 700px at 50% 30%, rgba(255,255,255,.10), transparent 60%),
+    radial-gradient(900px 500px at 50% 85%, rgba(0,0,0,.25), rgba(0,0,0,.65));
   z-index: -2;
   pointer-events: none;
 }
 
 /* hidden */
-.hidden {
-  display: none !important;
-}
+.hidden{ display: none !important; }
 
 /* 공통 카드 느낌 */
 #login-form,
 #todo-form input,
 #todo-list li,
 #quote,
-#weather {
+#weather{
   border: 1px solid var(--border);
   background: var(--glass);
   box-shadow: var(--shadow);
@@ -82,7 +74,7 @@ body::before {
 }
 
 /* ===== 상단: 로그인 폼 (있을 때만 보임) ===== */
-#login-form {
+#login-form{
   width: min(620px, 92vw);
   display: flex;
   gap: 10px;
@@ -90,112 +82,113 @@ body::before {
   justify-content: center;
   padding: 14px;
   border-radius: 18px;
-  grid-row: 1;
-  /* 위쪽에 두되 */
-  align-self: start;
-  /* 살짝 위 */
+  grid-row: 1;             /* 위쪽에 두되 */
+  align-self: start;       /* 살짝 위 */
   margin-top: 6px;
 }
 
-#login-form input[type="text"] {
+#login-form input[type="text"]{
   flex: 1;
   min-width: 200px;
   padding: 12px 14px;
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, .14);
-  background: rgba(255, 255, 255, .10);
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.10);
   color: var(--text);
   outline: none;
 }
 
-#login-form input[type="text"]::placeholder {
-  color: rgba(255, 255, 255, .65);
+#login-form input[type="text"]::placeholder{
+  color: rgba(255,255,255,.65);
 }
 
-#login-form input[type="submit"] {
+#login-form input[type="submit"]{
   padding: 12px 14px;
   border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, .14);
-  background: rgba(255, 255, 255, .14);
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.14);
   color: var(--text);
   cursor: pointer;
 }
 
 /* ===== 가운데: 시계/인사 ===== */
-#clock {
+#clock{
   grid-row: 2;
   margin: 0;
   font-weight: 800;
   font-size: clamp(56px, 9vw, 110px);
   letter-spacing: 0.04em;
-  text-shadow: 0 12px 30px rgba(0, 0, 0, .55);
+  text-shadow: 0 12px 30px rgba(0,0,0,.55);
   line-height: 1;
 }
 
-#greeting {
+#greeting{
   grid-row: 3;
   margin: 16px 0 0 0;
   font-weight: 700;
   font-size: clamp(22px, 3.5vw, 42px);
-  text-shadow: 0 12px 30px rgba(0, 0, 0, .55);
+  text-shadow: 0 12px 30px rgba(0,0,0,.55);
 }
-
-/* ===== 가운데 아래: 투두 입력/리스트 ===== */
+/* ===== 투두: 입력칸(위) + 리스트(아래) ===== */
 #todo-form {
   position: fixed;
   right: 24px;
-  bottom: 96px;
-  /* 명언 위로 살짝 */
-  width: 260px;
+  bottom: 320px;       /* 리스트 위로 올림 */
+  width: 320px;
   margin: 0;
+  z-index: 5;
 }
-
 
 #todo-form input {
-  padding: 10px 12px;
+  width: 100%;
+  padding: 12px 14px;
   font-size: 14px;
   border-radius: 14px;
-}
-
-#todo-form input::placeholder {
-  color: rgba(255, 255, 255, .65);
 }
 
 #todo-list {
   position: fixed;
   right: 24px;
   bottom: 24px;
-  width: 260px;
-  max-height: 220px;
+  width: 320px;
+  height: 260px;       /* 리스트 영역 고정 */
   overflow-y: auto;
 
   margin: 0;
   padding: 0;
   list-style: none;
-  display: grid;
+
+  display: flex;
+  flex-direction: column;  /* 위에서 아래로 쌓임 */
   gap: 8px;
+  z-index: 4;
 }
 
 #todo-list li {
-  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+
+  padding: 10px 12px;
   font-size: 13px;
   border-radius: 12px;
 }
 
-
 #todo-list li span {
   flex: 1;
-  text-align: left;
   word-break: break-word;
 }
 
 #todo-list li button {
-  padding: 4px 6px;
-  font-size: 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
 }
 
 /* ===== 하단: 명언(센터) / 날씨(우상단) ===== */
-#quote {
+#quote{
   position: fixed;
   left: 50%;
   bottom: 22px;
@@ -206,20 +199,20 @@ body::before {
   text-align: center;
 }
 
-#quote span:first-child {
+#quote span:first-child{
   display: block;
   font-size: 15px;
   line-height: 1.5;
 }
 
-#quote span:last-child {
+#quote span:last-child{
   display: block;
   margin-top: 8px;
   font-size: 13px;
   color: var(--muted);
 }
 
-#weather {
+#weather{
   position: fixed;
   top: 18px;
   right: 18px;
@@ -232,22 +225,9 @@ body::before {
 }
 
 /* 모바일에서 로그인폼 세로 */
-@media (max-width: 420px) {
-  #login-form {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  #login-form input[type="submit"] {
-    width: 100%;
-  }
-
-  #weather {
-    top: 12px;
-    right: 12px;
-  }
-
-  #quote {
-    bottom: 14px;
-  }
+@media (max-width: 420px){
+  #login-form{ flex-direction: column; align-items: stretch; }
+  #login-form input[type="submit"]{ width: 100%; }
+  #weather{ top: 12px; right: 12px; }
+  #quote{ bottom: 14px; }
 }
